@@ -1,4 +1,9 @@
-import React, { useState, forwardRef } from "react";
+import React, {
+  useState,
+  forwardRef,
+  useRef,
+  useImperativeHandle,
+} from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { SketchPicker } from "react-color";
 
@@ -10,6 +15,9 @@ const ItemTypes = {
 const ColorBox = forwardRef(
   ({ color, index, moveColor, replaceColor }, ref) => {
     const [showPicker, setShowPicker] = useState(false);
+    const internalRef = useRef(null);
+
+    useImperativeHandle(ref, () => internalRef.current);
 
     const [, drop] = useDrop({
       accept: ItemTypes.COLOR,
@@ -38,11 +46,11 @@ const ColorBox = forwardRef(
       setShowPicker(!showPicker);
     };
 
-    drag(drop(ref));
+    drag(drop(internalRef));
 
     return (
       <div
-        ref={ref}
+        ref={internalRef}
         style={{
           margin: "10px",
           cursor: "move",

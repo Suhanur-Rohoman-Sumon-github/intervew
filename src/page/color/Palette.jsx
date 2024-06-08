@@ -3,17 +3,19 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import update from "immutability-helper";
 import ColorBox from "./ColorBox";
+
+const initialColors = [
+  "#FF5733",
+  "#33FF57",
+  "#3357FF",
+  "#F3FF33",
+  "#33FFF3",
+  "#FF33A1",
+  "#A133FF",
+  "#FFB533",
+];
+
 const Palette = () => {
-  const initialColors = [
-    "#FF5733",
-    "#33FF57",
-    "#3357FF",
-    "#F3FF33",
-    "#33FFF3",
-    "#FF33A1",
-    "#A133FF",
-    "#FFB533",
-  ];
   const [colors, setColors] = useState(initialColors);
 
   const moveColor = (dragIndex, hoverIndex) => {
@@ -33,6 +35,7 @@ const Palette = () => {
     newColors[index] = newColor;
     setColors(newColors);
   };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div style={{ display: "flex", flexWrap: "wrap", width: "400px" }}>
